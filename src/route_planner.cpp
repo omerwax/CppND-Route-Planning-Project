@@ -152,22 +152,20 @@ std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node 
 // - Store the final path in the m_Model.path attribute before the method exits. This path will then be displayed on the map tile.
 
 void RoutePlanner::AStarSearch() {
+    
+    // TODO: Implement your solution here.
+    
     RouteModel::Node *current_node = nullptr;
     
     // add the starting node neighbors to the open list
     this->AddNeighbors(this->start_node);
 
-    start_node->h_value = this->CalculateHValue(start_node);
-        
-    // set the visited to true
+    // set the start_node visited to true
     start_node->visited = true;
-
-    int i = 0;
 
     // process the list
     while (!this->open_list.empty())
     {
-      i++;
       // get the next node from the nodes list
       current_node = this->NextNode();
 
@@ -175,7 +173,6 @@ void RoutePlanner::AStarSearch() {
       if (current_node == this->end_node)
       {
         this->m_Model.path = ConstructFinalPath(current_node);
-        std::cout << "A* finished with:  " << i++ << " Iterations" <<std::endl;
         return;
       }
               
@@ -183,10 +180,8 @@ void RoutePlanner::AStarSearch() {
       this->AddNeighbors(current_node);  
     }
 
+    // In case no path is found
+    this->m_Model.path = ConstructFinalPath(start_node);
     std::cout << "Couldn't find a valid path!!!" << std::endl;
-    std::cout << "A* failed with:  " << i++ << " Iterations" <<std::endl;
-    
-
-    // TODO: Implement your solution here.
 
 }
