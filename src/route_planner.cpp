@@ -68,8 +68,7 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
 
 }
 
-
-bool RoutePlanner::NodeCompare(RouteModel::Node * n1, RouteModel::Node * n2)
+bool NodeCompare(RouteModel::Node * n1, RouteModel::Node * n2)
 {
     if ((n1->g_value + n1->h_value) > (n2->g_value + n2->h_value))
         return true;
@@ -86,7 +85,7 @@ bool RoutePlanner::NodeCompare(RouteModel::Node * n1, RouteModel::Node * n2)
 RouteModel::Node *RoutePlanner::NextNode() {
 
     // Sort the open_list
-    std::sort(this->open_list.begin(), this->open_list.end(), RoutePlanner::NodeCompare);
+    std::sort(this->open_list.begin(), this->open_list.end(), NodeCompare);
     
     // Initialize the next_node pointer to the last node
     RouteModel::Node * next_node = this->open_list.back();
